@@ -45,9 +45,11 @@
   border-radius: 2px;
   transition: all var(--transition);
 }
-.about-link:hover {
+.about-link:hover,
+.about-link:focus-visible {
   background: var(--cyan-ghost);
   box-shadow: var(--glow-cyan-sm);
+  outline: none;
 }
 .about-link-label { color: var(--cyan-dim); margin-right: 4px; }
 
@@ -62,6 +64,7 @@
   margin-bottom: 18px;
   position: relative;
   cursor: pointer;
+  min-height: 44px;
   transition: all var(--transition);
 }
 .exp-entry::before {
@@ -76,7 +79,8 @@
 .exp-entry.brightness-mid   { border-color: rgba(0,200,255,0.45); color: rgba(0,200,255,0.45); }
 .exp-entry.brightness-low   { border-color: rgba(0,200,255,0.2); color: rgba(0,200,255,0.2); }
 
-.exp-entry:hover { opacity: 0.85; }
+.exp-entry:hover,
+.exp-entry:focus-visible { opacity: 0.85; outline: 2px solid var(--cyan); outline-offset: 2px; }
 
 .exp-company { font-size: var(--fs-md); font-weight: 700; letter-spacing: 1px; }
 .exp-role    { color: rgba(255,255,255,0.5); font-size: var(--fs-xs); margin-top: 2px; }
@@ -101,14 +105,18 @@
   border: 1px solid var(--cyan-border);
   background: var(--cyan-card-fill);
   padding: 14px;
+  min-height: 44px;
   border-radius: 3px;
   cursor: pointer;
   transition: all var(--transition);
 }
-.project-card:hover,
-.project-card:focus {
+.project-card:hover {
   border-color: var(--cyan);
   box-shadow: 0 0 16px rgba(0,200,255,0.12);
+}
+.project-card:focus-visible {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px var(--cyan);
   outline: none;
 }
 
@@ -176,7 +184,8 @@
   border: 1px solid var(--cyan-border); padding: 1px 7px; border-radius: 2px;
   flex-shrink: 0; transition: all var(--transition);
 }
-.writing-link:hover { background: var(--cyan-ghost); }
+.writing-link:hover,
+.writing-link:focus-visible { background: var(--cyan-ghost); outline: none; box-shadow: var(--glow-cyan-sm); }
 
 /* ============================================================
    CONTACT COMMAND
@@ -190,4 +199,5 @@
   border: 1px solid var(--cyan-border); padding: 1px 7px; border-radius: 2px;
   margin-left: 10px; flex-shrink: 0; transition: all var(--transition);
 }
-.contact-link:hover { background: var(--cyan-ghost); }
+.contact-link:hover,
+.contact-link:focus-visible { background: var(--cyan-ghost); outline: none; box-shadow: var(--glow-cyan-sm); }
