@@ -1,0 +1,209 @@
+/* ============================================================
+   BOOT SCREEN
+   ============================================================ */
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: var(--bg);
+  z-index: 100;
+  transition: opacity 0.4s ease-out;
+}
+
+/* Corner bracket decorations */
+.boot-corners::before,
+.boot-corners::after {
+  content: '';
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  border-color: rgba(0, 200, 255, 0.35);
+  border-style: solid;
+}
+.boot-corners::before {
+  top: 20px; left: 20px;
+  border-width: 1px 0 0 1px;
+}
+.boot-corners::after {
+  bottom: 20px; right: 20px;
+  border-width: 0 1px 1px 0;
+}
+
+.boot-header {
+  position: fixed;
+  top: 28px;
+  left: 0; right: 0;
+  text-align: center;
+  color: rgba(0, 200, 255, 0.3);
+  font-size: var(--fs-xs);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.boot-log {
+  width: 100%;
+  max-width: 560px;
+}
+
+.boot-line {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: var(--fs-sm);
+  line-height: 2;
+  animation: scanReveal 0.15s ease-out;
+}
+
+.boot-check { color: var(--green); flex-shrink: 0; }
+.boot-text  { color: var(--text-cyan); flex-shrink: 0; }
+.boot-dots  { color: rgba(0, 200, 255, 0.25); flex: 1; overflow: hidden; white-space: nowrap; }
+.boot-right { color: var(--cyan-dim); flex-shrink: 0; font-size: var(--fs-xs); }
+
+.boot-ready {
+  margin-top: 16px;
+  color: var(--cyan);
+  font-size: var(--fs-lg);
+  letter-spacing: 3px;
+  text-shadow: var(--glow-cyan);
+  animation: scanReveal 0.2s ease-out;
+}
+
+.boot-prompt {
+  margin-top: 14px;
+  color: var(--cyan-dim);
+  font-size: var(--fs-xs);
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+  color: var(--cyan);
+}
+
+/* ============================================================
+   MAIN TERMINAL LAYOUT
+   ============================================================ */
+.terminal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* NAV BAR */
+.terminal-nav {
+  flex-shrink: 0;
+  height: var(--nav-height);
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--cyan-border);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.terminal-nav::-webkit-scrollbar { display: none; }
+
+.nav-brand {
+  color: var(--cyan);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-right: 24px;
+  flex-shrink: 0;
+  text-shadow: var(--glow-cyan-sm);
+}
+
+.nav-link {
+  color: rgba(0, 200, 255, 0.35);
+  font-family: var(--font);
+  font-size: var(--fs-xs);
+  text-decoration: none;
+  padding: 4px 10px;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  transition: color var(--transition);
+  position: relative;
+}
+.nav-link:hover  { color: var(--cyan); }
+.nav-link.active { color: var(--cyan); }
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 10px; right: 10px;
+  height: 1px;
+  background: var(--cyan);
+  box-shadow: var(--glow-cyan-sm);
+}
+
+/* OUTPUT AREA */
+.terminal-output {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 28px;
+  scroll-behavior: smooth;
+}
+
+.terminal-output::-webkit-scrollbar { width: 3px; }
+.terminal-output::-webkit-scrollbar-track { background: transparent; }
+.terminal-output::-webkit-scrollbar-thumb { background: var(--cyan-border); border-radius: 2px; }
+
+/* Welcome message */
+.welcome-msg    { margin-bottom: 20px; }
+.welcome-label  { color: rgba(0, 200, 255, 0.3); font-size: var(--fs-xs); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
+.welcome-name   { color: var(--cyan); font-size: var(--fs-xl); font-weight: 700; letter-spacing: 3px; text-shadow: var(--glow-cyan); margin-bottom: 4px; }
+.welcome-role   { color: rgba(255, 255, 255, 0.55); font-size: var(--fs-sm); letter-spacing: 1px; margin-bottom: 14px; }
+.welcome-hint   { color: var(--cyan-dim); font-size: var(--fs-sm); line-height: 2; }
+.welcome-hint .cmd-name { color: var(--green); }
+
+/* Command echo and output */
+.cmd-echo  { margin-top: 16px; margin-bottom: 4px; font-size: var(--fs-sm); }
+.cmd-text  { color: var(--text-primary); margin-left: 8px; }
+.cmd-output { margin-bottom: 8px; }
+.cmd-error  { color: rgba(255, 80, 80, 0.85); font-size: var(--fs-sm); margin-bottom: 8px; }
+
+/* PROMPT ROW */
+.terminal-input-row {
+  flex-shrink: 0;
+  height: var(--prompt-height);
+  border-top: 1px solid rgba(0, 200, 255, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 10px;
+  background: var(--bg);
+}
+
+.prompt-label {
+  color: var(--green);
+  font-size: var(--fs-sm);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.cmd-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: var(--fs-md);
+  caret-color: var(--cyan);
+}
+
+/* MOBILE COMMAND GRID — hidden on desktop */
+.mobile-commands { display: none; }
+
+/* Keyboard focus ring */
+:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 2px;
+}
+:focus:not(:focus-visible) { outline: none; }
