@@ -1,7 +1,7 @@
 import { PROFILE } from './data/profile.js';
 
 const SESSION_KEY = 'mky_booted';
-const LINE_DELAY  = 200;   // ms between boot lines
+const LINE_DELAY  = 500;   // ms between boot lines
 const AUTO_DELAY  = 1500;  // ms after last line before auto-advance
 
 const BOOT_LINES = [

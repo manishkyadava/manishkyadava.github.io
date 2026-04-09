@@ -16,11 +16,11 @@
   --text-cyan:       rgba(0, 200, 255, 0.8);
 
   --font:            'JetBrains Mono', 'Courier New', monospace;
-  --fs-xs:           10px;
-  --fs-sm:           11px;
-  --fs-md:           13px;
-  --fs-lg:           16px;
-  --fs-xl:           20px;
+  --fs-xs:           12px;
+  --fs-sm:           13px;
+  --fs-md:           15px;
+  --fs-lg:           19px;
+  --fs-xl:           24px;
 
   --nav-height:      40px;
   --prompt-height:   46px;
