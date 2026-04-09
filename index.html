@@ -16,8 +16,8 @@
 <body>
 
   <!-- Boot sequence overlay -->
-  <div id="boot-screen" class="boot-screen" aria-live="polite" aria-label="System initializing">
-    <div class="boot-corners"></div>
+  <div id="boot-screen" class="boot-screen" aria-label="System initializing">
+    <div class="boot-corners" aria-hidden="true"></div>
     <div class="boot-header">ENCOM SECURE NETWORK — NODE 7743-A</div>
     <div id="boot-log" class="boot-log" role="log"></div>
     <div id="boot-prompt" class="boot-prompt hidden">
@@ -44,7 +44,7 @@
 
     <!-- Persistent prompt row -->
     <div class="terminal-input-row">
-      <span class="prompt-label" aria-hidden="true">visitor@mky:~$</span>
+      <label for="cmd-input" class="prompt-label" aria-hidden="true">visitor@mky:~$</label>
       <input
         type="text"
         id="cmd-input"
@@ -54,12 +54,11 @@
         autocapitalize="off"
         spellcheck="false"
         aria-label="Enter command"
-        placeholder=""
       >
     </div>
 
     <!-- Mobile command grid — hidden on desktop via CSS -->
-    <div class="mobile-commands" aria-label="Quick command buttons">
+    <div class="mobile-commands" role="group" aria-label="Quick command buttons">
       <button class="cmd-btn" data-command="about">about</button>
       <button class="cmd-btn" data-command="experience">experience</button>
       <button class="cmd-btn" data-command="projects">projects</button>
