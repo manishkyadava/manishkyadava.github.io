@@ -1,0 +1,101 @@
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --bg:              #000510;
+  --bg-nav:          rgba(0, 5, 20, 0.97);
+  --cyan:            #00c8ff;
+  --cyan-dim:        rgba(0, 200, 255, 0.5);
+  --cyan-ghost:      rgba(0, 200, 255, 0.12);
+  --cyan-border:     rgba(0, 200, 255, 0.25);
+  --cyan-card-fill:  rgba(0, 200, 255, 0.04);
+  --green:           #22ff88;
+  --green-dim:       rgba(34, 255, 136, 0.5);
+  --text-primary:    rgba(255, 255, 255, 0.85);
+  --text-muted:      rgba(255, 255, 255, 0.45);
+  --text-cyan:       rgba(0, 200, 255, 0.8);
+
+  --font:            'JetBrains Mono', 'Courier New', monospace;
+  --fs-xs:           10px;
+  --fs-sm:           11px;
+  --fs-md:           13px;
+  --fs-lg:           16px;
+  --fs-xl:           20px;
+
+  --nav-height:      40px;
+  --prompt-height:   46px;
+  --mobile-grid-height: 80px;
+
+  --transition:      150ms ease-out;
+  --glow-cyan:       0 0 12px rgba(0, 200, 255, 0.6);
+  --glow-cyan-sm:    0 0 6px  rgba(0, 200, 255, 0.4);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   SCANLINE OVERLAY — full page, pointer-events: none
+   ============================================================ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 200, 255, 0.012) 3px,
+    rgba(0, 200, 255, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.hidden { display: none !important; }
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes scanReveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scan-reveal for command output lines */
+.cmd-output > div {
+  animation: scanReveal 0.15s ease-out both;
+}
