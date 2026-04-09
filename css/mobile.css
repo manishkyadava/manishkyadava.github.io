@@ -1,0 +1,68 @@
+/* ============================================================
+   MOBILE COMMAND BUTTON GRID
+   Visible only on ≤768px. Hidden on desktop.
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Show the command grid */
+  .mobile-commands {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 8px 12px;
+    border-top: 1px solid var(--cyan-border);
+    background: var(--bg-nav);
+    flex-shrink: 0;
+  }
+
+  .cmd-btn {
+    background: rgba(0, 200, 255, 0.06);
+    border: 1px solid var(--cyan-border);
+    color: var(--cyan);
+    font-family: var(--font);
+    font-size: var(--fs-xs);
+    letter-spacing: 1px;
+    padding: 10px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    min-height: 44px;
+    transition: all var(--transition);
+    text-align: center;
+  }
+
+  .cmd-btn:active {
+    background: var(--cyan-ghost);
+    border-color: var(--cyan);
+  }
+
+  /* Condensed nav — horizontal scroll, no text wrapping */
+  .terminal-nav {
+    gap: 0;
+    padding: 0 12px;
+  }
+
+  .nav-brand   { margin-right: 16px; }
+  .nav-link    { padding: 4px 7px; font-size: 9px; }
+
+  /* Output area has less padding */
+  .terminal-output { padding: 14px 16px; }
+
+  /* Prompt row */
+  .terminal-input-row { padding: 0 16px; }
+
+  /* Project cards stack to 1 column */
+  .project-grid { grid-template-columns: 1fr; }
+
+  /* Skills grid stacks to 1 column */
+  .skills-grid  { grid-template-columns: 1fr; }
+
+  /* About links wrap more tightly */
+  .about-links  { gap: 7px; }
+
+  /* Reduce heading size on small screens */
+  .welcome-name  { font-size: var(--fs-lg); letter-spacing: 2px; }
+  .detail-name   { font-size: var(--fs-lg); }
+
+  /* Detail metrics 3-col still works, just smaller */
+  .detail-metric-value { font-size: var(--fs-md); }
+}
