@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio Tests</title>
+  <style>
+    body { font-family: monospace; background: #000510; color: #ccc; padding: 20px; }
+    .pass { color: #22ff88; }
+    .fail { color: #ff5555; }
+    .suite { color: #00c8ff; margin-top: 16px; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div id="results"></div>
+<div id="scan-target" style="display:none"></div>
+<script type="module">
+  import { escapeHtml, tag } from '../js/utils/html.js';
+  import { scanIn } from '../js/utils/scanIn.js';
+
+  const results = document.getElementById('results');
+
+  function suite(name) {
+    results.innerHTML += `<div class="suite">${name}</div>`;
+  }
+
+  function assert(description, actual, expected) {
+    const pass = actual === expected;
+    results.innerHTML += `<div class="${pass ? 'pass' : 'fail'}">
+      ${pass ? '✓' : '✗'} ${description}
+      ${pass ? '' : `<br>&nbsp;&nbsp;Expected: ${JSON.stringify(expected)}<br>&nbsp;&nbsp;Got:      ${JSON.stringify(actual)}`}
+    </div>`;
+  }
+
+  // escapeHtml
+  suite('escapeHtml');
+  assert('escapes &',  escapeHtml('a & b'),       'a &amp; b');
+  assert('escapes <',  escapeHtml('<script>'),     '&lt;script&gt;');
+  assert('escapes >',  escapeHtml('a > b'),        'a &gt; b');
+  assert('escapes "',  escapeHtml('"hello"'),      '&quot;hello&quot;');
+  assert('passthrough plain text', escapeHtml('hello world'), 'hello world');
+
+  // tag
+  suite('tag');
+  assert('builds tag', tag('span', 'foo', 'bar'), '<span class="foo">bar</span>');
+
+  // scanIn
+  suite('scanIn');
+  const target = document.getElementById('scan-target');
+  target.innerHTML = '';
+  await scanIn(target, ['<span>line1</span>', '<span>line2</span>'], 10);
+  assert('scanIn appends 2 divs', target.children.length, 2);
+  assert('scanIn first child content', target.children[0].innerHTML, '<span>line1</span>');
+</script>
+</body>
+</html>
