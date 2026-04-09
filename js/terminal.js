@@ -8,8 +8,11 @@ const MAX_HISTORY = 50;
 export function initTerminal() {
   const input  = document.getElementById('cmd-input');
   const output = document.getElementById('output');
+  if (!input || !output) return;
 
-  let history      = JSON.parse(sessionStorage.getItem(HISTORY_KEY) || '[]');
+  let history;
+  try { history = JSON.parse(sessionStorage.getItem(HISTORY_KEY) || '[]'); }
+  catch { history = []; }
   let historyIndex = -1;
 
   // Show welcome message
@@ -71,6 +74,7 @@ export function initTerminal() {
       }
       case 'Tab': {
         e.preventDefault();
+        if (!input.value) break;
         const matches = Object.keys(registry).filter(n => n.startsWith(input.value));
         if (matches.length === 1) input.value = matches[0];
         break;
