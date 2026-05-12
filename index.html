@@ -3,72 +3,623 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Manish K Yadava — SDET-3, Team Lead, AI Tooling Engineer">
-  <title>Manish K Yadava // Portfolio</title>
+  <meta name="description" content="Manish K Yadava — SDET-3, Team Lead, AI Tooling Engineer building AI-augmented testing systems.">
+  <title>Manish K Yadava — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/terminal.css">
-  <link rel="stylesheet" href="css/sections.css">
-  <link rel="stylesheet" href="css/mobile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: #f8f8f8; -webkit-font-smoothing: antialiased; }
+    a { transition: opacity 0.15s; }
+    a:hover { opacity: 0.75; }
+
+    .project-card { transition: border-color 0.2s, box-shadow 0.2s; }
+    .project-card:hover {
+      border-color: #00d4aa !important;
+      box-shadow: 0 8px 32px rgba(0, 212, 170, 0.08);
+    }
+
+    .footer-link:hover {
+      border-color: #00d4aa !important;
+      color: #00d4aa !important;
+      opacity: 1 !important;
+    }
+
+    section[id], footer[id] { scroll-margin-top: 64px; }
+
+    ::selection { background: rgba(0, 212, 170, 0.2); color: #0a0a0a; }
+
+    @media (max-width: 640px) {
+      .nav-inner { gap: 20px !important; padding: 14px 20px !important; }
+      .nav-inner a { font-size: 11px !important; letter-spacing: 1px !important; }
+      .hero-bg-text { font-size: min(22vw, 100px) !important; }
+      .hero-stripe { height: 22px !important; }
+      .hero-cta-line { display: none !important; }
+      .hero-cta-text { font-size: 13px !important; text-align: center; }
+      .about-section { padding: 80px 24px !important; }
+      .about-grid { grid-template-columns: 1fr !important; }
+      .about-stats { gap: 24px !important; flex-wrap: wrap !important; justify-content: center !important; }
+      .exp-section { padding: 80px 24px !important; }
+      .exp-row-header { flex-direction: column !important; gap: 4px !important; }
+      .exp-row-meta { text-align: left !important; margin-top: 4px; }
+      .projects-section { padding: 80px 24px !important; }
+      .projects-grid { grid-template-columns: 1fr !important; }
+      .skills-section { padding: 80px 24px !important; }
+      .skills-grid { grid-template-columns: 1fr !important; }
+      .writings-section { padding: 60px 24px !important; }
+      .writing-row { flex-direction: column !important; gap: 16px !important; align-items: flex-start !important; }
+      .footer-section { padding: 60px 24px !important; }
+    }
+
+    @media (max-width: 768px) and (min-width: 641px) {
+      .about-grid { grid-template-columns: 1fr 1fr !important; }
+      .projects-grid { grid-template-columns: 1fr !important; }
+      .skills-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <div id="root"></div>
 
-  <!-- Boot sequence overlay -->
-  <div id="boot-screen" class="boot-screen" aria-label="System initializing">
-    <div class="boot-corners" aria-hidden="true"></div>
-    <div class="boot-header">ENCOM SECURE NETWORK — NODE 7743-A</div>
-    <div id="boot-log" class="boot-log" role="log"></div>
-    <div id="boot-prompt" class="boot-prompt hidden">
-      <span id="boot-prompt-text">PRESS ENTER OR WAIT...</span>
-    </div>
-  </div>
+  <script type="text/babel">
+    const PT = {
+      bg: '#f8f8f8',
+      text: '#0a0a0a',
+      textMuted: '#555',
+      accent: '#00d4aa',
+      accentBg: 'rgba(0, 212, 170, 0.12)',
+      accentBorder: '#00d4aa',
+      sparkle: '#e84040',
+      cardBg: '#fff',
+      cardBorder: '#e4e4e4',
+      heading: "'Syne', sans-serif",
+      body: "'Outfit', sans-serif",
+    };
 
-  <!-- Main terminal (hidden until boot completes) -->
-  <div id="terminal" class="terminal hidden">
+    const PORTFOLIO = {
+      name: "Manish K Yadava",
+      title: "SDET-3 · Team Lead · AI Tooling Engineer",
+      location: "Bangalore, India",
+      email: "manishkyadava19@gmail.com",
+      links: [
+        { label: "LinkedIn", url: "https://www.linkedin.com/in/manish-k-yadava-36a470128/" },
+        { label: "GitHub", url: "https://github.com/manishkyadava" },
+        { label: "Medium", url: "https://medium.com/@manishkyadava7/" },
+        { label: "Email", url: "mailto:manishkyadava19@gmail.com" },
+      ],
+      experience: [
+        {
+          company: "Jumio Corporation",
+          role: "SDET-3 · Team Lead",
+          period: "Jun 2024 – Present",
+          location: "Bangalore",
+          summary: "Leading SDET team; building AI-augmented testing infrastructure at scale.",
+          highlights: [
+            "Built TestGenie — full-stack AI test management SaaS; 70% doc effort reduction, 3× faster test creation",
+            "Architected event-driven test framework covering 50+ microservices — zero production escapes",
+            "Built Bulldozer: LangChain pipeline reverse-engineering PRDs for 73+ microservices",
+            "Scaled UI automation coverage from 10% to 50% in 3 weeks",
+          ],
+        },
+        {
+          company: "Acko",
+          role: "SDET-1 → SDET-2",
+          period: "Aug 2021 – May 2024",
+          location: "Bangalore",
+          summary: "Built cross-platform test infrastructure; led pricing engine migration QA.",
+          highlights: [
+            "Architected test strategy for pricing grid migration: 500+ scenarios, 95% time reduction",
+            "Zero production defects post-migration across all broker platforms",
+            "Built unified regression suite for 8 broker platforms — 90% API coverage",
+          ],
+        },
+        {
+          company: "Capgemini",
+          role: "Analyst → Associate Consultant",
+          period: "Nov 2018 – Jul 2021",
+          location: "Bangalore",
+          summary: "Delivered automation frameworks and led training for enterprise QA projects.",
+          highlights: [
+            "Built Jasmine/JS framework for Universal Studios — 300+ test cases, 95% reliability",
+            "Migrated 150+ Ranorex scenarios with zero functionality loss",
+            "Delivered training for 12 team members; 100% certification in 6 weeks",
+          ],
+        },
+      ],
+      projects: [
+        {
+          name: "TestGenie",
+          org: "Jumio",
+          tagline: "Full-stack AI test management SaaS",
+          stack: ["Java 21", "Quarkus", "AWS Lambda", "DynamoDB", "React 18"],
+          metrics: [
+            { value: "70%", label: "Doc Effort Reduced" },
+            { value: "3×", label: "Faster Test Creation" },
+            { value: "5+", label: "Teams Adopted" },
+          ],
+        },
+        {
+          name: "Bulldozer",
+          org: "Jumio",
+          tagline: "LangChain AI documentation pipeline",
+          stack: ["Python", "LangChain", "Claude", "Pydantic", "Jira API"],
+          metrics: [
+            { value: "73+", label: "Microservices" },
+            { value: "69%", label: "Knowledge Coverage" },
+            { value: "Mins", label: "vs Days Before" },
+          ],
+        },
+        {
+          name: "Event-Driven Test Framework",
+          org: "Jumio",
+          tagline: "Java framework for AWS SNS/SQS microservice testing",
+          stack: ["Java", "TestNG", "AWS SNS", "AWS SQS", "Jenkins"],
+          metrics: [
+            { value: "50+", label: "Microservices" },
+            { value: "0", label: "Prod Escapes" },
+            { value: "100%", label: "Filter Coverage" },
+          ],
+        },
+        {
+          name: "Claude Code Toolkit",
+          org: "Jumio",
+          tagline: "Team-wide AI tooling standardisation via Claude Code",
+          stack: ["Bash", "Claude Code", "MCP Servers", "Anthropic API"],
+          metrics: [
+            { value: "5+", label: "Custom Skills" },
+            { value: "3", label: "Teams Onboarded" },
+            { value: "1-cmd", label: "Install" },
+          ],
+        },
+      ],
+      skills: {
+        "Languages": [
+          { name: "Java 21", level: 5 },
+          { name: "Python", level: 4 },
+          { name: "TypeScript", level: 3 },
+          { name: "Bash", level: 4 },
+          { name: "SQL", level: 3 },
+        ],
+        "Testing": [
+          { name: "TestNG", level: 5 },
+          { name: "Playwright", level: 4 },
+          { name: "RestAssured", level: 4 },
+          { name: "JUnit", level: 4 },
+        ],
+        "Cloud & Infra": [
+          { name: "AWS Lambda", level: 4 },
+          { name: "DynamoDB", level: 4 },
+          { name: "SNS / SQS", level: 4 },
+          { name: "Jenkins", level: 4 },
+        ],
+        "AI & LLMs": [
+          { name: "Claude / Anthropic", level: 5 },
+          { name: "LangChain", level: 4 },
+          { name: "AWS Bedrock", level: 3 },
+          { name: "MCP Servers", level: 4 },
+        ],
+      },
+      writings: [
+        {
+          title: "TestRail Integration with Automation Framework",
+          year: "2024",
+          url: "https://medium.com/@manishkyadava7/testrail-integration-with-automation-framework-4644c2c23701",
+        },
+      ],
+    };
 
-    <!-- Nav bar — fallback links, identical code path as typing -->
-    <nav class="terminal-nav" aria-label="Portfolio sections">
-      <span class="nav-brand">MKY://</span>
-      <a class="nav-link" href="#" data-command="about" aria-label="Run about command">about</a>
-      <a class="nav-link" href="#" data-command="experience" aria-label="Run experience command">experience</a>
-      <a class="nav-link" href="#" data-command="projects" aria-label="Run projects command">projects</a>
-      <a class="nav-link" href="#" data-command="skills" aria-label="Run skills command">skills</a>
-      <a class="nav-link" href="#" data-command="writings" aria-label="Run writings command">writings</a>
-      <a class="nav-link" href="#" data-command="contact" aria-label="Run contact command">contact</a>
-    </nav>
+    function Sparkle({ size = 20 }) {
+      return (
+        <span style={{ color: PT.sparkle, fontSize: size, lineHeight: 1, verticalAlign: 'middle' }}>✦</span>
+      );
+    }
 
-    <!-- Scrollable output history -->
-    <div id="output" class="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
+    function Highlight({ children }) {
+      return (
+        <span style={{
+          background: PT.accentBg,
+          border: `2.5px dashed ${PT.accentBorder}`,
+          padding: '2px 14px',
+          display: 'inline-block',
+          lineHeight: 'inherit',
+        }}>{children}</span>
+      );
+    }
 
-    <!-- Persistent prompt row -->
-    <div class="terminal-input-row">
-      <label for="cmd-input" class="prompt-label" aria-hidden="true">visitor@mky:~$</label>
-      <input
-        type="text"
-        id="cmd-input"
-        class="cmd-input"
-        autocomplete="off"
-        autocorrect="off"
-        autocapitalize="off"
-        spellcheck="false"
-        aria-label="Enter command"
-      >
-    </div>
+    function Nav() {
+      const [active, setActive] = React.useState('home');
 
-    <!-- Mobile command grid — hidden on desktop via CSS -->
-    <div class="mobile-commands" role="group" aria-label="Quick command buttons">
-      <button class="cmd-btn" data-command="about">about</button>
-      <button class="cmd-btn" data-command="experience">experience</button>
-      <button class="cmd-btn" data-command="projects">projects</button>
-      <button class="cmd-btn" data-command="skills">skills</button>
-      <button class="cmd-btn" data-command="writings">writings</button>
-      <button class="cmd-btn" data-command="contact">contact</button>
-    </div>
+      React.useEffect(() => {
+        const sections = ['home', 'about', 'work', 'contact'];
+        const handleScroll = () => {
+          const scrollY = window.scrollY + 120;
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const el = document.getElementById(sections[i]);
+            if (el && el.offsetTop <= scrollY) { setActive(sections[i]); break; }
+          }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
 
-  </div>
+      const navItems = [
+        { label: 'Home', href: '#home' },
+        { label: 'My Work', href: '#work' },
+        { label: 'About', href: '#about' },
+        { label: 'Contact', href: '#contact' },
+      ];
 
-  <script type="module" src="js/main.js"></script>
+      return (
+        <nav className="nav-inner" style={{
+          position: 'fixed', top: 0, left: 0, right: 0,
+          display: 'flex', justifyContent: 'center', gap: 48,
+          padding: '18px 40px',
+          background: 'rgba(248,248,248,0.92)',
+          backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+          zIndex: 100, fontFamily: PT.body,
+          borderBottom: '1px solid rgba(0,0,0,0.06)',
+        }}>
+          {navItems.map(item => {
+            const sectionId = item.href.replace('#', '');
+            const isActive = active === sectionId;
+            return (
+              <a key={item.label} href={item.href} style={{
+                textDecoration: isActive ? 'underline' : 'none',
+                textDecorationColor: PT.accent,
+                textUnderlineOffset: 6,
+                textDecorationThickness: 2.5,
+                color: isActive ? PT.text : PT.textMuted,
+                fontSize: 14, fontWeight: 600, letterSpacing: 1.5,
+                textTransform: 'uppercase', transition: 'color 0.2s',
+                opacity: 1,
+              }}>{item.label}</a>
+            );
+          })}
+        </nav>
+      );
+    }
+
+    function HeroSection() {
+      return (
+        <section id="home" style={{
+          position: 'relative', minHeight: '100vh',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          overflow: 'hidden', background: PT.bg,
+        }}>
+          {/* Grid */}
+          <div style={{
+            position: 'absolute', inset: 0, opacity: 0.35, pointerEvents: 'none',
+            backgroundImage: 'linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+          }} />
+
+          {/* Oversized background type */}
+          <div style={{
+            position: 'absolute', top: '50%', left: '50%',
+            transform: 'translate(-50%, -58%)',
+            textAlign: 'center', whiteSpace: 'nowrap',
+            pointerEvents: 'none', zIndex: 0, userSelect: 'none',
+          }}>
+            {['AUTOMATION', 'ENGINEER'].map((line, i) => (
+              <div key={i} className="hero-bg-text" style={{
+                fontFamily: PT.heading, fontWeight: 800,
+                fontSize: 'min(19vw, 240px)', lineHeight: 0.88,
+                color: PT.text, textTransform: 'uppercase',
+                letterSpacing: '-0.04em',
+              }}>{line}</div>
+            ))}
+          </div>
+
+          {/* Accent stripe through center */}
+          <div className="hero-stripe" style={{
+            position: 'absolute', top: '49%', left: 0, right: 0,
+            height: 38, background: PT.accent, zIndex: 1,
+          }} />
+
+          {/* Bottom CTA */}
+          <div style={{
+            position: 'absolute', bottom: 40, left: 0, right: 0,
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14,
+            zIndex: 3,
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div className="hero-cta-line" style={{ width: 32, height: 2, background: PT.accent }} />
+              <span className="hero-cta-text" style={{ fontFamily: PT.body, fontSize: 15, color: PT.textMuted, fontWeight: 500 }}>
+                Let's build quality into every line of code
+              </span>
+              <div className="hero-cta-line" style={{ width: 32, height: 2, background: PT.accent }} />
+            </div>
+            <div style={{
+              fontFamily: PT.heading, fontWeight: 700,
+              fontSize: 14, color: PT.text, letterSpacing: 3,
+              textTransform: 'uppercase',
+            }}>Bangalore, India</div>
+          </div>
+        </section>
+      );
+    }
+
+    function AboutSection() {
+      return (
+        <section id="about" className="about-section" style={{ padding: '120px 60px', background: PT.bg, textAlign: 'center' }}>
+          <div style={{ maxWidth: 960, margin: '0 auto' }}>
+            <div style={{
+              fontFamily: PT.heading, fontWeight: 800,
+              fontSize: 'clamp(30px, 5vw, 54px)', lineHeight: 1.25,
+              color: PT.text, marginBottom: 20,
+            }}>
+              I'm Manish K Yadava,{' '}<br />
+              an <Highlight>AI tooling</Highlight> <Highlight>engineer</Highlight> <Sparkle size={28} />
+            </div>
+            <div style={{
+              fontFamily: PT.heading, fontWeight: 700,
+              fontSize: 'clamp(22px, 3.2vw, 38px)', lineHeight: 1.45,
+              color: PT.text, marginBottom: 56,
+            }}>
+              I build intelligent testing systems<br />
+              that make quality engineering<br />
+              faster and smarter. <Sparkle size={22} />
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 32 }}>
+              <Sparkle size={18} />
+              <span style={{ fontFamily: PT.body, fontSize: 17, fontWeight: 600, color: PT.text }}>What I specialize in</span>
+            </div>
+
+            <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, maxWidth: 840, margin: '0 auto' }}>
+              {[
+                { title: 'AI Test Systems', desc: 'LLM-powered tooling for test generation, documentation, and intelligent coverage analysis' },
+                { title: 'Test Infrastructure', desc: 'Event-driven frameworks, regression suites, and CI/CD pipelines across 50+ microservices' },
+                { title: 'Team Leadership', desc: 'Mentoring engineers, standardizing AI tooling, and scaling quality practices across teams' },
+              ].map((item, i) => (
+                <div key={i} style={{
+                  background: PT.cardBg, border: `2px solid ${PT.cardBorder}`,
+                  padding: '32px 24px', textAlign: 'left',
+                }}>
+                  <div style={{ fontFamily: PT.heading, fontWeight: 700, fontSize: 16, color: PT.text, marginBottom: 10 }}>{item.title}</div>
+                  <div style={{ fontFamily: PT.body, fontSize: 14, color: PT.textMuted, lineHeight: 1.75 }}>{item.desc}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="about-stats" style={{ display: 'flex', justifyContent: 'center', gap: 48, marginTop: 48 }}>
+              {[
+                { val: '7+', label: 'Years Experience' },
+                { val: '4', label: 'Active Projects' },
+                { val: '3', label: 'Companies' },
+                { val: '50+', label: 'Microservices Tested' },
+              ].map((s, i) => (
+                <div key={i} style={{ textAlign: 'center' }}>
+                  <div style={{ fontFamily: PT.heading, fontWeight: 800, fontSize: 32, color: PT.text }}>{s.val}</div>
+                  <div style={{ fontFamily: PT.body, fontSize: 12, color: PT.textMuted, letterSpacing: 1, textTransform: 'uppercase', marginTop: 2 }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function SectionHeader({ title }) {
+      return (
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <h2 style={{
+            fontFamily: PT.heading, fontWeight: 800, fontSize: 32,
+            color: PT.text, display: 'inline-flex', alignItems: 'center', gap: 12,
+          }}>
+            {title} <Sparkle size={22} />
+          </h2>
+        </div>
+      );
+    }
+
+    function ExperienceSection() {
+      return (
+        <section className="exp-section" style={{ padding: '100px 60px', background: '#fff' }}>
+          <div style={{ maxWidth: 920, margin: '0 auto' }}>
+            <SectionHeader title="Experience" />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {PORTFOLIO.experience.map((exp, i) => (
+                <div key={i} style={{ padding: '36px 0', borderTop: `2px solid ${PT.cardBorder}` }}>
+                  <div className="exp-row-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+                    <div>
+                      <h3 style={{ fontFamily: PT.heading, fontWeight: 700, fontSize: 22, margin: 0, color: PT.text }}>{exp.company}</h3>
+                      <div style={{ fontFamily: PT.body, fontSize: 15, color: PT.accent, fontWeight: 600, marginTop: 4 }}>{exp.role}</div>
+                    </div>
+                    <div className="exp-row-meta" style={{ textAlign: 'right', flexShrink: 0 }}>
+                      <div style={{ fontFamily: PT.body, fontSize: 14, color: PT.textMuted, fontWeight: 500 }}>{exp.period}</div>
+                      <div style={{ fontFamily: PT.body, fontSize: 13, color: '#999' }}>{exp.location}</div>
+                    </div>
+                  </div>
+                  <p style={{ fontFamily: PT.body, color: PT.textMuted, fontSize: 14, margin: '8px 0 16px', lineHeight: 1.7 }}>{exp.summary}</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {exp.highlights.map((h, j) => (
+                      <div key={j} style={{
+                        fontFamily: PT.body, fontSize: 13, color: PT.textMuted,
+                        paddingLeft: 20, position: 'relative', lineHeight: 1.8,
+                      }}>
+                        <span style={{ position: 'absolute', left: 0, color: PT.accent, fontWeight: 700 }}>→</span>
+                        {h}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function ProjectsSection() {
+      return (
+        <section id="work" className="projects-section" style={{ padding: '100px 60px', background: PT.bg }}>
+          <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+            <SectionHeader title="My Projects" />
+            <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+              {PORTFOLIO.projects.map((p, i) => (
+                <div key={i} className="project-card" style={{
+                  background: PT.cardBg, border: `2px solid ${PT.cardBorder}`,
+                  padding: 32, display: 'flex', flexDirection: 'column',
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
+                    <h3 style={{ fontFamily: PT.heading, fontWeight: 700, fontSize: 20, margin: 0, color: PT.text }}>{p.name}</h3>
+                    <span style={{ fontFamily: PT.body, fontSize: 11, fontWeight: 700, color: PT.accent, letterSpacing: 1.5, textTransform: 'uppercase', flexShrink: 0, marginLeft: 8 }}>{p.org}</span>
+                  </div>
+                  <p style={{ fontFamily: PT.body, fontSize: 13, color: PT.textMuted, margin: '0 0 20px', lineHeight: 1.6 }}>{p.tagline}</p>
+
+                  <div style={{ display: 'flex', gap: 10, marginBottom: 20 }}>
+                    {p.metrics.map((m, j) => (
+                      <div key={j} style={{ flex: 1, background: PT.bg, padding: '14px 10px', textAlign: 'center' }}>
+                        <div style={{ fontFamily: PT.heading, fontWeight: 800, fontSize: 26, color: PT.text }}>{m.value}</div>
+                        <div style={{ fontFamily: PT.body, fontSize: 10, fontWeight: 600, color: PT.textMuted, letterSpacing: 0.5, textTransform: 'uppercase', marginTop: 3 }}>{m.label}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 'auto' }}>
+                    {p.stack.map((t, j) => (
+                      <span key={j} style={{
+                        fontFamily: PT.body, fontSize: 11, fontWeight: 500,
+                        color: PT.textMuted, padding: '4px 10px',
+                        background: PT.bg, border: `1px solid ${PT.cardBorder}`,
+                      }}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function SkillsSection() {
+      return (
+        <section className="skills-section" style={{ padding: '100px 60px', background: '#fff' }}>
+          <div style={{ maxWidth: 920, margin: '0 auto' }}>
+            <SectionHeader title="Skills" />
+            <div className="skills-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }}>
+              {Object.entries(PORTFOLIO.skills).map(([cat, items]) => (
+                <div key={cat}>
+                  <h4 style={{
+                    fontFamily: PT.heading, fontWeight: 700, fontSize: 15,
+                    color: PT.text, marginBottom: 16, paddingBottom: 10,
+                    borderBottom: `2px solid ${PT.cardBorder}`,
+                  }}>{cat}</h4>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                    {items.map((s, j) => {
+                      const strong = s.level >= 4;
+                      return (
+                        <span key={j} style={{
+                          fontFamily: PT.body, fontSize: 13, fontWeight: 500,
+                          color: strong ? PT.text : PT.textMuted,
+                          padding: '7px 16px',
+                          background: strong ? PT.accentBg : PT.bg,
+                          border: strong ? `2px dashed ${PT.accent}` : `1.5px solid ${PT.cardBorder}`,
+                        }}>{s.name}</span>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function WritingsSection() {
+      if (!PORTFOLIO.writings.length) return null;
+      return (
+        <section className="writings-section" style={{ padding: '80px 60px', background: PT.bg }}>
+          <div style={{ maxWidth: 920, margin: '0 auto' }}>
+            <SectionHeader title="Writings" />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {PORTFOLIO.writings.map((w, i) => (
+                <div key={i} className="writing-row" style={{
+                  background: PT.cardBg, border: `2px solid ${PT.cardBorder}`,
+                  padding: '24px 32px', display: 'flex',
+                  alignItems: 'center', justifyContent: 'space-between',
+                }}>
+                  <div>
+                    <div style={{ fontFamily: PT.heading, fontWeight: 700, fontSize: 17, color: PT.text }}>{w.title}</div>
+                    <div style={{ fontFamily: PT.body, fontSize: 13, color: PT.textMuted, marginTop: 4 }}>{w.year} · Medium</div>
+                  </div>
+                  <a href={w.url} target="_blank" rel="noopener noreferrer" style={{
+                    fontFamily: PT.body, fontSize: 14, fontWeight: 600,
+                    color: PT.accent, textDecoration: 'none',
+                    padding: '8px 22px', border: `2px solid ${PT.accent}`,
+                    flexShrink: 0, transition: 'all 0.15s',
+                  }}>Read →</a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function FooterSection() {
+      return (
+        <footer id="contact" className="footer-section" style={{
+          background: '#0a0a0a', color: '#fff',
+          padding: '80px 60px', textAlign: 'center',
+        }}>
+          <div style={{ maxWidth: 640, margin: '0 auto' }}>
+            <h2 style={{
+              fontFamily: PT.heading, fontWeight: 800, fontSize: 34,
+              margin: '0 0 8px', display: 'inline-flex', alignItems: 'center', gap: 12,
+            }}>
+              Let's Connect <Sparkle size={26} />
+            </h2>
+            <p style={{ fontFamily: PT.body, fontSize: 15, color: '#888', margin: '12px 0 36px' }}>{PORTFOLIO.email}</p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 14, flexWrap: 'wrap' }}>
+              {PORTFOLIO.links.map(l => (
+                <a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer"
+                  className="footer-link"
+                  style={{
+                    fontFamily: PT.body, fontSize: 14, fontWeight: 600,
+                    color: '#fff', textDecoration: 'none',
+                    padding: '10px 24px', border: '2px solid #333',
+                    transition: 'all 0.15s',
+                  }}>{l.label}</a>
+              ))}
+            </div>
+            <div style={{
+              marginTop: 56, paddingTop: 24,
+              borderTop: '1px solid #222',
+              fontFamily: PT.body, fontSize: 12, color: '#555',
+            }}>
+              © 2026 {PORTFOLIO.name}. Built with purpose.
+            </div>
+          </div>
+        </footer>
+      );
+    }
+
+    function App() {
+      return (
+        <div>
+          <Nav />
+          <HeroSection />
+          <AboutSection />
+          <ExperienceSection />
+          <ProjectsSection />
+          <SkillsSection />
+          <WritingsSection />
+          <FooterSection />
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
 </body>
 </html>
